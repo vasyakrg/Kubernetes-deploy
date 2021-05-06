@@ -6,7 +6,6 @@ RUN apt-get update && apt-get install -y \
         curl \
         wget \
         git \
-        # && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
         && apt-get update && rm -rf /var/lib/apt/lists/*
 
 RUN rm /etc/apache2/sites-enabled/*
@@ -16,4 +15,3 @@ RUN a2enmod rewrite headers && a2ensite myapp
 COPY myapp/ /var/www/
 
 WORKDIR /var/www
-# CMD ['apache2-foreground']
