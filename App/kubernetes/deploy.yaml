@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: myapp
+  labels:
+    app: myapp
+  name: myapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myapp
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      hostname: app-pod
+      restartPolicy: Always
+      containers:
+        - name: app-fpm
+          image: vasyakrg/php-app
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 80

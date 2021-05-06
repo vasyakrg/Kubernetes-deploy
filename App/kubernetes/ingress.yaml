@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: myapp
+  annotations:
+    cert-manager.io/cluster-issuer: orc-letsencrypt-issuer
+    nginx.ingress.kubernetes.io/proxy-body-size: 200m
+    nginx.ingress.kubernetes.io/from-to-www-redirect: "true"
+  name: k8s-app
+spec:
+  rules:
+  - host: app.k8s-nsk.tk
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: app-service
+            port:
+              number: 80
+  tls:
+  - hosts:
+      - app.k8s-nsk.tk
+    secretName: app-k8s-nsk-tls
