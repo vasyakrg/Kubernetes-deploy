@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         wget \
         git \
         libpq-dev \
-        && docker-php-ext-install mysqli pdo_pgsql pdo_mysql \
+        && docker-php-ext-install pdo_mysql \
         && apt-get update \
         && rm -rf /var/lib/apt/lists/*
 

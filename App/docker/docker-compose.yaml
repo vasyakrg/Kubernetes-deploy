@@ -8,6 +8,8 @@ services:
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
       MARIADB_DATABASE: ${MARIADB_DATABASE}
+    volumes:
+      - ./php/myapp:/var/www
     ports:
       - 80:80
     networks:
