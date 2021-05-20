@@ -25,6 +25,24 @@ spec:
           imagePullPolicy: Always
           ports:
           - containerPort: 80
+          env:
+          - name: MARIADB_HOST
+            value: app-mariadb-service
+          - name: MARIADB_USER
+            valueFrom:
+              secretKeyRef:
+                name: myapp-mariadb-secret
+                key: mariadb-user
+          - name: MARIADB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: myapp-mariadb-secret
+                key: mariadb-password
+          - name: MARIADB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: myapp-mariadb-secret
+                key: mariadb-dbname
 ---
 
 apiVersion: apps/v1
@@ -32,55 +50,53 @@ kind: Deployment
 metadata:
   namespace: myapp
   labels:
-    app: myapp-psql
-  name: myapp-psql
+    app: myapp-mariadb
+  name: myapp-mariadb
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: myapp-psql
+      app: myapp-mariadb
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: myapp-psql
+        app: myapp-mariadb
     spec:
-      hostname: myapp-psql-pod
+      hostname: myapp-mariadb-pod
       restartPolicy: Always
       containers:
         - name: myapp-db
-          image: postgres:12-alpine
-          imagePullPolicy: IfNotPresent
+          image: vasyakrg/php-db
+          imagePullPolicy: Always
           env:
-          - name: POSTGRES_USER
+          - name: MARIADB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: myapp-psql-secret
-                key: postgress-user
-          - name: POSTGRES_PASSWORD
+                name: myapp-mariadb-secret
+                key: mariadb-password
+          - name: MARIADB_USER
             valueFrom:
               secretKeyRef:
-                name: myapp-psql-secret
-                key: postgress-password
-          - name: POSTGRES_DB
+                name: myapp-mariadb-secret
+                key: mariadb-user
+          - name: MARIADB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: myapp-psql-secret
-                key: postgress-dbname
+                name: myapp-mariadb-secret
+                key: mariadb-password
+          - name: MARIADB_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: myapp-mariadb-secret
+                key: mariadb-dbname
           volumeMounts:
-            - name: vol-myapp-postgres
-              mountPath: /var/lib/postgresql/data
+            - name: vol-myapp-mariadb
+              mountPath: /var/lib/mysql
               subPath: data
-            - name: pgsql-tmpfs
-              mountPath: /run
-            - name: pgsql-tmpfs
-              mountPath: /tmp
 
       volumes:
-        - name: vol-myapp-postgres
+        - name: vol-myapp-mariadb
           persistentVolumeClaim:
             claimName: myapp-db-pvc
-        - name: pgsql-tmpfs
-          emptyDir:
-            medium: Memory
