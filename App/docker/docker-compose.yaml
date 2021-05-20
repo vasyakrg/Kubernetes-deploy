@@ -1,12 +1,34 @@
 version: '3.7'
 services:
-    app:
-        build: ./php
-        container_name: myapp
-        ports:
-          - 80:80
-        networks:
-            app_net:
+  app:
+    image: vasyakrg/php-app
+    container_name: myapp
+    environment:
+      MARIADB_HOST: db
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+    ports:
+      - 80:80
+    networks:
+        app_net:
+  db:
+    image: vasyakrg/php-db
+    container_name: db
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+    volumes:
+      - db_volume:/var/lib/mysql
+    ports:
+      - 3306:3306
+    networks:
+        app_net:
+
+volumes:
+  db_volume:
 
 networks:
   app_net:

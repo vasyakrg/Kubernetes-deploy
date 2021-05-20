@@ -11,3 +11,16 @@ spec:
   selector:
     app: myapp
 ---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-postgress-service
+spec:
+  type: NodePort
+  ports:
+    - name: myapp-postgress-port
+      port: 5432
+  selector:
+    app: myapp-psql
+---

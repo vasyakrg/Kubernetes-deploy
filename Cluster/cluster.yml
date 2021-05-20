@@ -6,24 +6,24 @@ ignore_docker_version: true
 kubernetes_version: v1.19.9-rancher1-1
 
 nodes:
-  - address: 65.21.148.66
-    internal_address: 10.0.0.3
+  - address: 65.21.177.5
+    # internal_address: 10.0.0.3
     hostname_override: node1
     user: root
     labels:
       worker: yes
       location: nsk
     role: [controlplane, worker, etcd]
-  - address: 65.21.146.162
-    internal_address: 10.0.0.2
+  - address: 65.21.177.4
+    # internal_address: 10.0.0.2
     hostname_override: node2
     user: root
     labels:
       worker: yes
       location: nsk
     role: [controlplane, worker, etcd]
-  - address: 65.21.149.204
-    internal_address: 10.0.0.4
+  - address: 65.21.177.3
+    # internal_address: 10.0.0.4
     hostname_override: node3
     user: root
     labels:
@@ -49,7 +49,7 @@ services:
 authentication:
     strategy: x509
     sans:
-      - "167.233.11.162"
+      - "95.217.170.205"
       - "rke.k8s-nsk.tk"
 
 dns:

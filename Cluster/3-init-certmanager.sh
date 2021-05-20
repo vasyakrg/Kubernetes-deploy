@@ -22,4 +22,5 @@ kubectl -n cert-manager rollout status deploy/cert-manager
 
 sleep 5
 
+# Add ACME issuer - FIX email in file BEFORE!!!
 kubectl apply -f certmanager/orc-letsencrypt-issuer.yaml
