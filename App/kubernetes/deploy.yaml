@@ -76,6 +76,8 @@ spec:
               secretKeyRef:
                 name: myapp-mariadb-secret
                 key: mariadb-password
+          - name: MARIADB_ROOT_HOST
+            value: "%"
           - name: MARIADB_USER
             valueFrom:
               secretKeyRef:
@@ -94,7 +96,7 @@ spec:
           volumeMounts:
             - name: vol-myapp-mariadb
               mountPath: /var/lib/mysql
-              subPath: data
+              subPath: mysql
 
       volumes:
         - name: vol-myapp-mariadb
