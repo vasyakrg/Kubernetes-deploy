@@ -3,15 +3,11 @@ MAINTAINER vasyakrg <vasyakrg@gmail.com>
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         apt-transport-https \
-        curl \
-        wget \
-        git \
         libpq-dev \
         && docker-php-ext-install pdo_mysql \
-        && apt-get update \
-        && rm -rf /var/lib/apt/lists/*
+        && rm -rf /var/lib/apt/lists/* \
+        && rm /etc/apache2/sites-enabled/*
 
-RUN rm /etc/apache2/sites-enabled/*
 COPY myapp.conf /etc/apache2/sites-available/myapp.conf
 RUN a2enmod rewrite headers && a2ensite myapp
 
