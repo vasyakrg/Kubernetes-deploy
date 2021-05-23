@@ -35,7 +35,7 @@ metadata:
   name: k8s-app
 spec:
   rules:
-  - host: app.k8s-nsk.tk
+  - host: app3.k8s-nsk.tk
     http:
       paths:
       - pathType: Prefix
@@ -47,7 +47,7 @@ spec:
               number: 80
   tls:
   - hosts:
-      - app.k8s-nsk.tk
+      - app3.k8s-nsk.tk
     secretName: app-k8s-nsk-tls
 
 ---

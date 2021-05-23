@@ -6,7 +6,7 @@ ignore_docker_version: true
 kubernetes_version: v1.19.9-rancher1-1
 
 nodes:
-  - address: 65.21.177.5
+  - address: 65.21.183.185
     # internal_address: 10.0.0.3
     hostname_override: node1
     user: root
@@ -14,7 +14,7 @@ nodes:
       worker: yes
       location: nsk
     role: [controlplane, worker, etcd]
-  - address: 65.21.177.4
+  - address: 65.21.183.183
     # internal_address: 10.0.0.2
     hostname_override: node2
     user: root
@@ -22,7 +22,7 @@ nodes:
       worker: yes
       location: nsk
     role: [controlplane, worker, etcd]
-  - address: 65.21.177.3
+  - address: 65.21.183.184
     # internal_address: 10.0.0.4
     hostname_override: node3
     user: root

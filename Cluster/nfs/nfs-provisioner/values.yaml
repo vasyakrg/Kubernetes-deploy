@@ -7,7 +7,7 @@ image:
   pullPolicy: IfNotPresent
 
 nfs:
-  server: 65.21.177.6
+  server: 65.21.55.156
   path: /mnt/data
   mountOptions:
 
